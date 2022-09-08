@@ -8,9 +8,10 @@ const Addnewuser = () => {
   });
   function submitform(event) {
     setadduser((alluser) => {
+      const  {name,value}=event.target
       return {
         ...alluser,
-        [event.target.name]: event.target.value,
+        [name]: value,
       };
     });
   }
