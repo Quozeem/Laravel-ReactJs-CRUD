@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
 import Form from "../component/Form";
+import Delete from "../component/Delete";
 import "../component/style.css";
 import PostInfo from "../component/PostInfo";
 import Edit from "../component/Edit";
 import axios from "axios";
 import Formvalidate from "../component/Formvalidate";
 import { propTypes } from "react-bootstrap/esm/Image";
+
 const Table = () => {
   const [table, settable] = useState([]);
   const [show, setShow] = useState(false);
@@ -102,7 +104,11 @@ const Table = () => {
                 onClick={() => handler(tableElement.user_id)}>
                 Edit
               </Button>
-              <Button
+              <Delete
+                key={tableElement.user_id}
+                delete_id={tableElement.user_id}
+              />
+              {/* <Button
                 variant="primary"
                 // onClick={
                 //   () =>
@@ -111,7 +117,7 @@ const Table = () => {
                 //       }
               >
                 Delete
-              </Button>
+              </Button> */}
             </div>
           </td>
         </tr>
