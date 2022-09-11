@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TableController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('insert',[App\Http\Controllers\TableController::class,'insert']);
-Route::post('update',[App\Http\Controllers\TableController::class,'update']);
-Route::get('table/{user_id}',[App\Http\Controllers\TableController::class,'edittable']);
-Route::get('table',[App\Http\Controllers\TableController::class,'fetchtable']);
+Route::get('delete/{delete_id}',[TableController::class,'delete']);
+Route::post('insert',[TableController::class,'insert']);
+Route::post('update',[TableController::class,'update']);
+Route::get('table/{user_id}',[TableController::class,'edittable']);
+Route::get('table',[TableController::class,'fetchtable']);
