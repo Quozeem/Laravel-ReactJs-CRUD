@@ -15,6 +15,19 @@ class Table extends Model
             'fname', 'email','passowrd','status',
  'lname',  'address',  'phone', 'rank',
     ];
+    public function delete_user($delete_id)
+    {
+      $delete=DB::table('users')
+      ->where('user_id','=',$delete_id)
+      ->delete();
+     if($delete)
+     {
+      return response()->json([
+        'status'=>200,
+        'data'=>"Deleted !"
+  ]);
+    }
+    }
     public static function store($request)
     {
       if($request->all()){
@@ -22,13 +35,13 @@ class Table extends Model
         $select=Table::where('email','=',$request->email)->get();
    
         if(empty($request->fname)){
-          return response()->json(
+        $data_to_check=(
             ['status'=>"fnameerror",
             'data' =>"Firstname is required"
           ]);
         }
        else if(empty($request->email)){
-          return response()->json(
+        $data_to_check=(
             ['status'=>"emailerror",
              'data' =>"Email is required"
           ]);
@@ -36,28 +49,29 @@ class Table extends Model
       
       else if(count($select) >0)
        {
-            return response()->json([
+        $data_to_check=array(
                'status'=>"erroMailexit",
                'data'=> 'Email Already Exits'
-             ]);
+             );
            } 
           
         else if(empty($request->address)){
-          return response()->json(
-            ['status'=>"addresserror",
+          $data_to_check=array(
+            'status'=>"addresserror",
              'data' =>"Address is required"
-          ]);
+          );
         }
         else{
        $insert_all= $request->all();
        $table=Table::create($insert_all);
        if( $table){
-        return response()->json(
-          ['status'=>200,
+        $data_to_check=array(
+          'status'=>200,
            'data' =>"Successfully inserted!"
-        ]);
+        );
        }
       }
+      return json_encode( $data_to_check);
         }
     }
     public static function fetchall()
@@ -66,18 +80,21 @@ class Table extends Model
         ->get();
         if(($tablefetch->count()) > 0)
   {     
-  return response()->json([
-         'status'=> 200,
+ $alldata=([   
+        'status'=> 200,
             'data'=> $tablefetch
               ,'count' => count($tablefetch)
-           ]);
+          ] );
      }
      else{
-      return response()->json([
+      $alldata=([
         'error'=> "No Data Available"
         ]);
       }
+  $fetch=json_encode($alldata);
+   return $fetch;
     }
+
     public function edituser($user_id)
     {
         $edittable=  DB::table('users')
