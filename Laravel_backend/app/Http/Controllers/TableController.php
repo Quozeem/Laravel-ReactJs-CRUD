@@ -14,7 +14,11 @@ class TableController extends Controller
      *
      * @return void
      */
-   
+      public function delete($delete_id)
+      {
+        $deleted_user=new Table;
+       return  $deleted_user->delete_user($delete_id);
+      }
     public function converter(Request $request)
     {
       //composer
@@ -28,7 +32,7 @@ class TableController extends Controller
     }
     public function insert(Request $request)
     {
-    $store=Table::store($request);
+      $store=Table::store($request);
     return $store;
     }
     public function fetchtable()
@@ -36,7 +40,7 @@ class TableController extends Controller
         $fetchall=Table::fetchall();
  return $fetchall;
     }
-    public function edittable($user_id)
+    public function edittable(Request $request,$user_id)
     {
       $extendTableclass= new Table();
       $edituser=$extendTableclass->edituser($user_id);
