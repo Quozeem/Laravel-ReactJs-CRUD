@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use DB;
+use Hash;
 use Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ class Table extends Model
     protected $table="users";
     public $timestamps=false;
     protected $fillable=[
-            'fname', 'email','passowrd','status',
+            'fname', 'email','password','status',
  'lname',  'address',  'phone', 'rank',
     ];
     public function delete_user($delete_id)
@@ -63,6 +64,8 @@ class Table extends Model
         }
         else{
        $insert_all= $request->all();
+      
+       $insert_all['password']=Hash::make( $insert_all['password']) ;
        $table=Table::create($insert_all);
        if( $table){
         $data_to_check=array(
@@ -135,5 +138,39 @@ class Table extends Model
      }}
      
     }
+ /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+      'password',
+      'remember_token',
+  ];
+
+  /**
+   * The attributes that should be cast.
+   *
+   * @var array
+   */
+  protected $casts = [
+      'email_verified_at' => 'datetime',
+  ];
+
+/**
+   * The attributes that should be hidden for serialization.
+   *
+   * @var array
+   */
+  public function user(){
+      return $this->belongTo(User::class);
+  }
+
+  /**
+   * The attributes that should be cast.
+   *
+   * @var array
+   */
+
 }
 

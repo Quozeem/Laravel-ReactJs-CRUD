@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use App\Models\Table;
 use DB;
+use Hash;
 use AmrShawky\LaravelCurrency\Facade\Currency;
 use validator;
 class TableController extends Controller
@@ -14,6 +16,7 @@ class TableController extends Controller
      *
      * @return void
      */
+   
       public function delete($delete_id)
       {
         $deleted_user=new Table;
@@ -35,6 +38,7 @@ class TableController extends Controller
       $store=Table::store($request);
     return $store;
     }
+   
     public function fetchtable()
     {
         $fetchall=Table::fetchall();
