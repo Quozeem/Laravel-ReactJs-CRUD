@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
+
 class JWTController extends Controller
 {
     public function register(Request $request)
@@ -55,6 +56,7 @@ class JWTController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6|max:50'
         ]);
+//if
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
@@ -62,7 +64,8 @@ class JWTController extends Controller
         }
 
         //Request is validated
-        //Crean token
+        //Crean token 
+If
         
         try {
             if (! $token = JWTAUTH::attempt($credentials)) {
